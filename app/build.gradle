@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+
+    defaultConfig {
+        applicationId androidApplicationId
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile supportDependencies.design
+    compile supportDependencies.supportAnnotations
+
+
+    annotationProcessor diDependencies.daggerCompiler
+    compile diDependencies.dagger
+    annotationProcessor diDependencies.butterknifeCompiler
+    compile diDependencies.butterknife
+
+    compile rxDependencies.rxJava
+    compile rxDependencies.rxAndroid
+
+    androidTestCompile testDependencies.junit
+    androidTestCompile testDependencies.junit
+    androidTestCompile testDependencies.supportTestRunner
+    androidTestCompile supportDependencies.supportAnnotations
+    testCompile testDependencies.junit
+}
