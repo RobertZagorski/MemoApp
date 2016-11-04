@@ -7,12 +7,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.rzagorski.memoapp.R;
+import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.base.BaseRecyclerViewFragment;
 import com.rzagorski.memoapp.ui.memo.MemoActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,6 +36,7 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
 
     @Inject MemoFragmentPresenter mPresenter;
 
+    @BindView(R.id.add_memo_title) EditText memoTitle;
     @BindView(R.id.fab) FloatingActionButton FABButton;
 
     Unbinder unbinder;
@@ -38,6 +47,7 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
@@ -58,6 +68,45 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
         super.onViewCreated(view, savedInstanceState);
         mPresenter.attachView(this);
         createViews();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        mPresenter.detachView();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_memo, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.save) {
+            saveMemo();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveMemo() {
+        Memo memo = new Memo();
+        memo.setTitle(memoTitle.getText().toString());
+        memo.setDateCreated(System.currentTimeMillis());
+        memo.setArchived(false);
+        List<String> memoItemList = new ArrayList<>();
+        MemoItemListAdapter adapter = (MemoItemListAdapter) mRecyclerView.getAdapter();
+        for (int i = 0; i < adapter.getItemCount(); ++i) {
+            String item = adapter.getItemAt(i);
+            if (item == null || item.isEmpty()) {
+                continue;
+            }
+            memoItemList.add(item);
+        }
+        memo.setMemoList(memoItemList);
+        mPresenter.saveMemo(memo);
     }
 
     private void createViews() {
@@ -81,13 +130,6 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        mPresenter.detachView();
-    }
-
-    @Override
     public int getListViewId() {
         return R.id.memo_item_list;
     }
@@ -95,5 +137,10 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
     @Override
     protected RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(getActivity());
+    }
+
+    @Override
+    public void finish() {
+        getActivity().finish();
     }
 }

@@ -7,4 +7,6 @@ import com.rzagorski.memoapp.ui.base.MvpView;
  */
 
 public interface MemoDetailsView extends MvpView {
+
+    void finish();
 }

@@ -18,7 +18,7 @@ public class Memo {
     private String title;
     private Long dateCreated;
     private boolean isArchived;
-    private List<MemoList> memoList;
+    private List<String> memoList;
 
     public Long getId() {
         return id;
@@ -52,12 +52,20 @@ public class Memo {
         isArchived = archived;
     }
 
+    public List<String> getMemoList() {
+        return memoList;
+    }
+
+    public void setMemoList(List<String> memoList) {
+        this.memoList = memoList;
+    }
+
     public static String getSQLCreateTable() {
         return "CREATE TABLE " + TABLE_NAME + " ( "
-                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
-                + COLUMN_TITLE + " TEXT "
-                + COLUMN_DATE_CREATED + " INTEGER "
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_TITLE + " TEXT, "
+                + COLUMN_DATE_CREATED + " INTEGER, "
                 + COLUMN_ARCHIVED + " INTEGER "
-                + ");";
+                + "); ";
     }
 }

@@ -57,11 +57,12 @@ public class DatabaseManager {
         return memoList;
     }
 
-    public Observable<Boolean> insertMemo(Memo memo) {
+    public Observable<Memo> insertMemo(Memo memo) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Memo.COLUMN_TITLE, memo.getTitle());
         contentValues.put(Memo.COLUMN_DATE_CREATED, memo.getDateCreated());
         contentValues.put(Memo.COLUMN_ARCHIVED, memo.isArchived() ? 1 : 0);
-        return Observable.just(dbUtil.insert(Memo.TABLE_NAME, contentValues));
+        dbUtil.insert(Memo.TABLE_NAME, contentValues);
+        return Observable.just(memo);
     }
 }

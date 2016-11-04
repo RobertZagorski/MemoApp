@@ -1,7 +1,10 @@
 package com.rzagorski.memoapp.di.memo;
 
+import com.rzagorski.memoapp.data.database.DatabaseManager;
+import com.rzagorski.memoapp.data.interactor.SaveMemoInteractor;
 import com.rzagorski.memoapp.di.ActivityScope;
 import com.rzagorski.memoapp.ui.memo.MemoActivity;
+import com.rzagorski.memoapp.ui.memo.fragment.MemoFragmentPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,5 +24,17 @@ public class MemoActivityModule {
     @ActivityScope
     MemoActivity provideMemoActivity() {
         return mMemoActivity;
+    }
+
+    @Provides
+    @ActivityScope
+    SaveMemoInteractor provideSaveMemoInteractor(DatabaseManager databaseManager) {
+        return new SaveMemoInteractor(databaseManager);
+    }
+
+    @Provides
+    @ActivityScope
+    MemoFragmentPresenter provideMemoFragmentPresenter(SaveMemoInteractor saveMemoInteractor) {
+        return new MemoFragmentPresenter(saveMemoInteractor);
     }
 }

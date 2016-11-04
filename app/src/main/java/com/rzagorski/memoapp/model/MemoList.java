@@ -13,10 +13,10 @@ public class MemoList {
 
 
     public static String getSQLCreateTable() {
-        return "CREATE TABLE" + TABLE_NAME + " ( "
-                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
-                + COLUMN_MEMO_ID + " INTEGER REFERENCES " + Memo.TABLE_NAME + "(" + Memo.COLUMN_ID + ")"
-                + COLUMN_VALUE + "TEXT "
+        return "CREATE TABLE " + TABLE_NAME + " ( "
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_MEMO_ID + " INTEGER REFERENCES " + Memo.TABLE_NAME + "(" + Memo.COLUMN_ID + "), "
+                + COLUMN_VALUE + " TEXT "
                 + ");";
     }
 }
