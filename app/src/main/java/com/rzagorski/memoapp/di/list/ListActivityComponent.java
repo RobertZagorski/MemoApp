@@ -4,6 +4,8 @@ import com.rzagorski.memoapp.di.ActivityScope;
 import com.rzagorski.memoapp.di.memo.MemoActivityComponent;
 import com.rzagorski.memoapp.di.memo.MemoActivityModule;
 import com.rzagorski.memoapp.ui.list.MemoListActivity;
+import com.rzagorski.memoapp.ui.list.active.ActiveListFragment;
+import com.rzagorski.memoapp.ui.list.archived.ArchivedListFragment;
 import com.rzagorski.memoapp.utils.interfaces.DaggerComponent;
 
 import dagger.Subcomponent;
@@ -22,4 +24,7 @@ public interface ListActivityComponent extends DaggerComponent {
 
     MemoListActivity inject(MemoListActivity memoListActivity);
 
+    void inject(ArchivedListFragment archivedListFragment);
+
+    void inject(ActiveListFragment activeListFragment);
 }

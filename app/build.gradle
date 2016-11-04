@@ -22,6 +22,7 @@ android {
 
 dependencies {
     compile supportDependencies.design
+    compile supportDependencies.cardViewv7
     compile supportDependencies.supportAnnotations
 
 

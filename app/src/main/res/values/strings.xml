@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MemoApp</string>
+    <string name="activity_list_title">Memo list</string>
+    <string name="activity_single_memo_title">Memo</string>
+    <string name="memo_active">active</string>
+    <string name="memo_archived">archived</string>
 </resources>
