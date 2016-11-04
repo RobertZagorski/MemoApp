@@ -5,11 +5,14 @@ import com.rzagorski.memoapp.di.list.ListActivityModule;
 import com.rzagorski.memoapp.di.memo.MemoComponent;
 import com.rzagorski.memoapp.di.memo.MemoModule;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
  * Created by Robert Zagórski on 2016-11-03.
  */
+@Singleton
 @Component(
         modules = {
                 ApplicationModule.class,

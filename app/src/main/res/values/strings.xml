@@ -4,4 +4,6 @@
     <string name="activity_single_memo_title">Memo</string>
     <string name="memo_active">active</string>
     <string name="memo_archived">archived</string>
+    <string name="hint_memo_title">Enter memo title</string>
+    <string name="add_memo_item">Add new memo item</string>
 </resources>

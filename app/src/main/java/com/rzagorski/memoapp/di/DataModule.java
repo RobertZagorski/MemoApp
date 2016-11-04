@@ -1,7 +1,6 @@
 package com.rzagorski.memoapp.di;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.rzagorski.memoapp.data.database.DBUtil;
 import com.rzagorski.memoapp.data.database.DatabaseManager;
@@ -24,7 +23,7 @@ public class DataModule {
 
     @Provides
     @Singleton
-    DBUtil provideDBUtil(@ApplicationContext Context context) {
+    DBUtil provideDBUtil(Application context) {
         return new DBUtil(context, null, 1);
     }
 

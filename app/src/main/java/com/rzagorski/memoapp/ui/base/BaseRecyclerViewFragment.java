@@ -3,12 +3,9 @@ package com.rzagorski.memoapp.ui.base;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-
-import com.rzagorski.memoapp.R;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -50,7 +47,7 @@ public abstract class BaseRecyclerViewFragment<V extends RecyclerBaseAdapter, L>
         c.setAccessible(true);
         abstractListAdapter = (V) c.newInstance(getActivity(), new ArrayList<L>());
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getActivity().getResources().getInteger(R.integer.grid_span)));
+        mRecyclerView.setLayoutManager(getLayoutManager());
         mRecyclerView.setAdapter(abstractListAdapter);
     }
 
@@ -73,6 +70,8 @@ public abstract class BaseRecyclerViewFragment<V extends RecyclerBaseAdapter, L>
     }
 
     public abstract int getListViewId();
+
+    protected abstract RecyclerView.LayoutManager getLayoutManager();
 
     public void addItems(Collection<L> list) {
         abstractListAdapter.addAllItems(list);
