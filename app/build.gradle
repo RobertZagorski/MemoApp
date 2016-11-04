@@ -38,5 +38,9 @@ dependencies {
     androidTestCompile testDependencies.junit
     androidTestCompile testDependencies.supportTestRunner
     androidTestCompile supportDependencies.supportAnnotations
+    androidTestCompile(testDependencies.espresso) {
+        exclude group: 'javax.inject'
+    }
+    androidTestCompile testDependencies.espresso_intent
     testCompile testDependencies.junit
 }

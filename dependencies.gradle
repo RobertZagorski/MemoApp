@@ -71,6 +71,7 @@ ext {
             supportTestRunner: "com.android.support.test:runner:${runner_version}",
             supportTestRules : "com.android.support.test:rules:${runner_version}",
             espresso         : "com.android.support.test.espresso:espresso-core:${espresso_version}",
-            espresso_contrib : "com.android.support.test.espresso:espresso-contrib:${espresso_version}"
+            espresso_contrib : "com.android.support.test.espresso:espresso-contrib:${espresso_version}",
+            espresso_intent  : "com.android.support.test.espresso:espresso-intents:${espresso_version}"
     ]
 }
