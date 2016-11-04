@@ -85,7 +85,7 @@ public class MemoListActivity extends AppCompatActivity implements ComponentCrea
     }
 
     private void showArchivedList() {
-        FragmentHelper.replaceFragment(getSupportFragmentManager(), activeListFragment, R.id.fragment_container);
+        FragmentHelper.replaceFragment(getSupportFragmentManager(), archivedListFragment, R.id.fragment_container);
     }
 
     @Override

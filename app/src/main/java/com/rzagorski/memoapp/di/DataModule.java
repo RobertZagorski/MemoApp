@@ -1,8 +1,15 @@
 package com.rzagorski.memoapp.di;
 
 import android.app.Application;
+import android.content.Context;
+
+import com.rzagorski.memoapp.data.database.DBUtil;
+import com.rzagorski.memoapp.data.database.DatabaseManager;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * Created by Robert Zagórski on 2016-11-03.
@@ -13,5 +20,17 @@ public class DataModule {
 
     public DataModule(Application application) {
         mApplication = application;
+    }
+
+    @Provides
+    @Singleton
+    DBUtil provideDBUtil(@ApplicationContext Context context) {
+        return new DBUtil(context, null, 1);
+    }
+
+    @Provides
+    @Singleton
+    DatabaseManager provideDatabaseManager(DBUtil dbUtil) {
+        return new DatabaseManager(dbUtil);
     }
 }
