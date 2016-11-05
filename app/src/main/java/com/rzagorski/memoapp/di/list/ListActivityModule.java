@@ -1,5 +1,7 @@
 package com.rzagorski.memoapp.di.list;
 
+import com.rzagorski.memoapp.data.database.DatabaseManager;
+import com.rzagorski.memoapp.data.interactor.MemoListInteractor;
 import com.rzagorski.memoapp.di.ActivityScope;
 import com.rzagorski.memoapp.ui.list.MemoListActivity;
 
@@ -15,6 +17,12 @@ public class ListActivityModule {
 
     public ListActivityModule(MemoListActivity memoListActivity) {
         this.mMemoListActivity = memoListActivity;
+    }
+
+    @Provides
+    @ActivityScope
+    MemoListInteractor provideMemoListInteractor(DatabaseManager databaseManager) {
+        return new MemoListInteractor(databaseManager);
     }
 
     @Provides

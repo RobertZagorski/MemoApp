@@ -10,6 +10,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Robert Zagórski on 2016-11-04.
@@ -41,6 +44,18 @@ public class MemoListInteractor implements ObservableUseCase<List<Memo>> {
 
     @Override
     public Observable<List<Memo>> build() {
-        return null;
+        return Observable.just(mMemoType)
+                .flatMap(new Func1<Integer, Observable<List<Memo>>>() {
+                    @Override
+                    public Observable<List<Memo>> call(Integer memoType) {
+                        List<Memo> memoList;
+                        if (memoType == ACTIVE) {
+                            return databaseManager.selectActiveMemoList();
+                        } else {
+                            return databaseManager.selectArchivedMemoList();
+                        }
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

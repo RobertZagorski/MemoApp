@@ -13,6 +13,8 @@ import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.base.BaseRecyclerViewFragment;
 import com.rzagorski.memoapp.ui.list.MemoListActivity;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -63,5 +65,10 @@ public class ArchivedListFragment extends BaseRecyclerViewFragment<ArchivedListA
     @Override
     protected RecyclerView.LayoutManager getLayoutManager() {
         return new GridLayoutManager(getActivity(), getActivity().getResources().getInteger(R.integer.grid_span));
+    }
+
+    @Override
+    public void showMemos(List<Memo> memoList) {
+        addAllItems(memoList);
     }
 }

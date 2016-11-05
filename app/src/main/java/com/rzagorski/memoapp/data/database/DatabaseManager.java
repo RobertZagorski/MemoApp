@@ -26,14 +26,14 @@ public class DatabaseManager {
 
     public Observable<List<Memo>> selectActiveMemoList() {
         String query = "SELECT * FROM " + Memo.TABLE_NAME
-                + "WHERE " + Memo.COLUMN_ARCHIVED + "=0";
+                + " WHERE " + Memo.COLUMN_ARCHIVED + " = 0;";
         List<Memo> memoList = execute(query);
         return Observable.just(memoList);
     }
 
     public Observable<List<Memo>> selectArchivedMemoList() {
         String query = "SELECT * FROM " + Memo.TABLE_NAME
-                + "WHERE " + Memo.COLUMN_ARCHIVED + " = 1";
+                + " WHERE " + Memo.COLUMN_ARCHIVED + " = 1;";
         List<Memo> memoList = execute(query);
         return Observable.just(memoList);
     }
@@ -62,7 +62,11 @@ public class DatabaseManager {
         contentValues.put(Memo.COLUMN_TITLE, memo.getTitle());
         contentValues.put(Memo.COLUMN_DATE_CREATED, memo.getDateCreated());
         contentValues.put(Memo.COLUMN_ARCHIVED, memo.isArchived() ? 1 : 0);
-        dbUtil.insert(Memo.TABLE_NAME, contentValues);
+        if (memo.getId() == null) {
+            dbUtil.insert(Memo.TABLE_NAME, contentValues);
+        } else {
+            dbUtil.update(Memo.TABLE_NAME, memo.getId().intValue(), contentValues);
+        }
         return Observable.just(memo);
     }
 }

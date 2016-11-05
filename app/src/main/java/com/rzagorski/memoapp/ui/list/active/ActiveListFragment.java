@@ -13,6 +13,8 @@ import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.base.BaseRecyclerViewFragment;
 import com.rzagorski.memoapp.ui.list.MemoListActivity;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -47,6 +49,7 @@ public class ActiveListFragment extends BaseRecyclerViewFragment<ActiveListAdapt
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.attachView(this);
+        mPresenter.selectMemos();
     }
 
     @Override
@@ -65,4 +68,8 @@ public class ActiveListFragment extends BaseRecyclerViewFragment<ActiveListAdapt
         return new GridLayoutManager(getActivity(), getActivity().getResources().getInteger(R.integer.grid_span));
     }
 
+    @Override
+    public void showMemos(List<Memo> memoList) {
+        addAllItems(memoList);
+    }
 }
