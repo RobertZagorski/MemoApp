@@ -72,7 +72,6 @@ public class MemoActivity extends AppCompatActivity implements ComponentCreator<
     @Override
     public void onBackPressed() {
         finish();
-
     }
 
     @Override

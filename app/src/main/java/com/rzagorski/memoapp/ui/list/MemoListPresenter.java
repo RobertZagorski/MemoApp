@@ -1,6 +1,7 @@
 package com.rzagorski.memoapp.ui.list;
 
 import com.rzagorski.memoapp.data.ScopeManager;
+import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -18,6 +19,6 @@ public class MemoListPresenter extends BasePresenter<MemoList> {
     }
 
     public void onNewMemoClick() {
-        scopeManager.createMemoComponent(null);
+        scopeManager.createMemoComponent(new Memo());
     }
 }

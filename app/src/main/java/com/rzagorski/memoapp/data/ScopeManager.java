@@ -23,7 +23,8 @@ public class ScopeManager {
     }
 
     public MemoComponent createMemoComponent(Memo memo) {
-        MemoComponent memoComponent = mApplication.getApplicationComponent().provide(new MemoModule(memo));
+        MemoComponent memoComponent = mApplication.getApplicationComponent()
+                .provide(new MemoModule(memo));
         mApplication.setComponent(memoComponent);
         return memoComponent;
     }

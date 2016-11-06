@@ -1,5 +1,6 @@
 package com.rzagorski.memoapp.ui.list.archived;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,8 @@ import com.rzagorski.memoapp.R;
 import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.base.BaseRecyclerViewFragment;
 import com.rzagorski.memoapp.ui.list.MemoListActivity;
+import com.rzagorski.memoapp.ui.memo.MemoActivity;
+import com.rzagorski.memoapp.utils.interfaces.ListItemClickDelegate;
 
 import java.util.List;
 
@@ -21,7 +24,8 @@ import javax.inject.Inject;
  * Created by Robert Zagórski on 2016-11-04.
  */
 
-public class ArchivedListFragment extends BaseRecyclerViewFragment<ArchivedListAdapter, Memo> implements ArchivedMemoList {
+public class ArchivedListFragment extends BaseRecyclerViewFragment<ArchivedListAdapter, Memo>
+        implements ArchivedMemoList, ListItemClickDelegate {
 
     @Inject ArchivedListPresenter mPresenter;
 
@@ -52,6 +56,12 @@ public class ArchivedListFragment extends BaseRecyclerViewFragment<ArchivedListA
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.selectMemos();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.detachView();
@@ -70,5 +80,13 @@ public class ArchivedListFragment extends BaseRecyclerViewFragment<ArchivedListA
     @Override
     public void showMemos(List<Memo> memoList) {
         addAllItems(memoList);
+        abstractListAdapter.setClickDelegate(this);
+    }
+
+    @Override
+    public void onItemClick(Memo memo) {
+        mPresenter.onMemoClick(memo);
+        Intent intent = new Intent(getActivity(), MemoActivity.class);
+        getActivity().startActivity(intent);
     }
 }

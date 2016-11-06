@@ -14,7 +14,7 @@ ext {
     androidSwipeLayoutVersion = '1.2.0'
 
     //dependencyInjection
-    daggerVersion = '2.4'
+    daggerVersion = '2.7'
     butterknifeVersion = '8.0.1'
 
     //reactive programming libraries

@@ -7,4 +7,5 @@
     <string name="hint_memo_title">Enter memo title</string>
     <string name="add_memo_item">Add new memo item</string>
     <string name="save">Save</string>
+    <string name="archive">Archive</string>
 </resources>

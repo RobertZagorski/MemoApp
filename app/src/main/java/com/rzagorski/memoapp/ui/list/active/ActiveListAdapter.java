@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.rzagorski.memoapp.R;
 import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.base.RecyclerBaseAdapter;
+import com.rzagorski.memoapp.utils.interfaces.ListItemClickDelegate;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ import java.util.List;
  */
 
 public class ActiveListAdapter extends RecyclerBaseAdapter<ActiveListAdapter.ActiveViewHolder, Memo> {
+
+    private ListItemClickDelegate clickDelegate;
 
     public ActiveListAdapter(Context mContext, List<Memo> list) {
         super(mContext, list);
@@ -37,6 +40,10 @@ public class ActiveListAdapter extends RecyclerBaseAdapter<ActiveListAdapter.Act
         holder.dateCreated.setText(memo.getDateCreated().toString());
     }
 
+    public void setClickDelegate(ListItemClickDelegate clickDelegate) {
+        this.clickDelegate = clickDelegate;
+    }
+
     public class ActiveViewHolder extends RecyclerBaseAdapter.ViewHolder {
         TextView title;
         TextView dateCreated;
@@ -49,6 +56,11 @@ public class ActiveListAdapter extends RecyclerBaseAdapter<ActiveListAdapter.Act
 
         @Override
         public void onClick(View v) {
+            if (clickDelegate == null) {
+                return;
+            }
+            Memo memo = getItemAt(getAdapterPosition());
+            clickDelegate.onItemClick(memo);
         }
     }
 }

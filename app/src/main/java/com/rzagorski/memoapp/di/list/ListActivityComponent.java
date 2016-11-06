@@ -20,8 +20,6 @@ import dagger.Subcomponent;
 )
 public interface ListActivityComponent extends DaggerComponent {
 
-    MemoActivityComponent provide(MemoActivityModule memoActivityModule);
-
     MemoListActivity inject(MemoListActivity memoListActivity);
 
     void inject(ArchivedListFragment archivedListFragment);

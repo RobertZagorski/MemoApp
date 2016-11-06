@@ -66,8 +66,8 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.attachView(this);
         createViews();
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -85,10 +85,19 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.save) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.save :
             saveMemo();
+                break;
+            case R.id.archive:
+                archiveMemo();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void archiveMemo() {
+        mPresenter.archiveMemo();
     }
 
     private void saveMemo() {
@@ -142,5 +151,18 @@ public class MemoFragment extends BaseRecyclerViewFragment<MemoItemListAdapter, 
     @Override
     public void finish() {
         getActivity().finish();
+    }
+
+    @Override
+    public void setMemoTitle(String title) {
+        memoTitle.setText(title);
+    }
+
+    @Override
+    public void setMemoItems(List<String> memoList) {
+        if (memoList == null) {
+            return;
+        }
+        addAllItems(memoList);
     }
 }

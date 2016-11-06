@@ -1,5 +1,7 @@
 package com.rzagorski.memoapp.di.memo;
 
+import android.support.annotation.Nullable;
+
 import com.rzagorski.memoapp.model.Memo;
 
 import dagger.Module;

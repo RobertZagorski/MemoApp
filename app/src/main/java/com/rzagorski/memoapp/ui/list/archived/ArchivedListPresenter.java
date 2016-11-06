@@ -1,5 +1,6 @@
 package com.rzagorski.memoapp.ui.list.archived;
 
+import com.rzagorski.memoapp.data.ScopeManager;
 import com.rzagorski.memoapp.data.interactor.MemoListInteractor;
 import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.base.BasePresenter;
@@ -19,18 +20,25 @@ import rx.Subscriber;
 
 public class ArchivedListPresenter extends BasePresenter<ArchivedMemoList> {
 
-    MemoListInteractor mMemoListInteractor;
+    private ScopeManager mScopeManager;
+    private MemoListInteractor mMemoListInteractor;
 
     @Inject
-    public ArchivedListPresenter(MemoListInteractor memoListInteractor) {
+    public ArchivedListPresenter(ScopeManager scopeManager,
+                                 MemoListInteractor memoListInteractor) {
+        this.mScopeManager = scopeManager;
         this.mMemoListInteractor = memoListInteractor;
     }
 
     public void selectMemos() {
         Subscriber<List<Memo>> memoSubscriber = new ArchivedListPresenter.MemoSubscriber();
-        Observable<List<Memo>> memoObservable = mMemoListInteractor.build(MemoListInteractor.ACTIVE);
+        Observable<List<Memo>> memoObservable = mMemoListInteractor.build(MemoListInteractor.ARCHIVED);
         mSubscription.add(memoSubscriber);
         memoObservable.subscribe(memoSubscriber);
+    }
+
+    public void onMemoClick(Memo memo) {
+        mScopeManager.createMemoComponent(memo);
     }
 
     private class MemoSubscriber extends DefaultSubscriber<List<Memo>> {

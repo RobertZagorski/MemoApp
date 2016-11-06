@@ -49,6 +49,11 @@ public class MemoListActivity extends AppCompatActivity implements ComponentCrea
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     private void restoreFragments() {
         Fragment restoredFragment = findFragmentByTag(ActiveListFragment.class);
         if (restoredFragment != null) {

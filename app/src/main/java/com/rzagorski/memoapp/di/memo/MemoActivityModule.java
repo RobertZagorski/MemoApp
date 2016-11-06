@@ -1,8 +1,12 @@
 package com.rzagorski.memoapp.di.memo;
 
+import android.support.annotation.Nullable;
+
+import com.rzagorski.memoapp.data.ScopeManager;
 import com.rzagorski.memoapp.data.database.DatabaseManager;
 import com.rzagorski.memoapp.data.interactor.SaveMemoInteractor;
 import com.rzagorski.memoapp.di.ActivityScope;
+import com.rzagorski.memoapp.model.Memo;
 import com.rzagorski.memoapp.ui.memo.MemoActivity;
 import com.rzagorski.memoapp.ui.memo.fragment.MemoFragmentPresenter;
 
@@ -34,7 +38,11 @@ public class MemoActivityModule {
 
     @Provides
     @ActivityScope
-    MemoFragmentPresenter provideMemoFragmentPresenter(SaveMemoInteractor saveMemoInteractor) {
-        return new MemoFragmentPresenter(saveMemoInteractor);
+    MemoFragmentPresenter provideMemoFragmentPresenter(ScopeManager scopeManager,
+                                                       SaveMemoInteractor saveMemoInteractor,
+                                                       Memo memo) {
+        return new MemoFragmentPresenter(scopeManager,
+                saveMemoInteractor,
+                memo);
     }
 }
